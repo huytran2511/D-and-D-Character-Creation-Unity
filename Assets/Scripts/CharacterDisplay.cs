@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackGroundSound : MonoBehaviour
+public class CharacterDisplay : MonoBehaviour
 {
-    private static BackGroundSound instance = null;
-    public static BackGroundSound Instance
+    public GameObject character;
+
+    private static CharacterDisplay instance = null;
+    public static CharacterDisplay Instance
     {
         get { return instance; }
     }
@@ -22,5 +24,9 @@ public class BackGroundSound : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(transform.root.gameObject);
+    }
+    void Start()
+    {
+        character = GameObject.Find("myChar");
     }
 }

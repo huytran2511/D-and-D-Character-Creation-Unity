@@ -14,6 +14,25 @@ public class RollDice : MonoBehaviour
     public float total;
     public List<float> Total;
 
+    private static RollDice instance = null;
+    public static RollDice Instance
+    {
+        get { return instance; }
+    }
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(transform.root.gameObject);
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+        DontDestroyOnLoad(transform.root.gameObject);
+    }
     void Start()
     {
         Total = new List<float>();
@@ -44,18 +63,18 @@ public class RollDice : MonoBehaviour
                 third = Roll[j];
             }
         }
+
         total = first + second + third;
         if(Total.Count < 6)
         {
             Total.Add(total);
+            Output1.text = Roll[0].ToString();
+            Output2.text = Roll[1].ToString();
+            Output3.text = Roll[2].ToString();
+            Output4.text = Roll[3].ToString();
+            Output5.text = Roll[4].ToString();
+            OutputTotal.text = total.ToString();
         }
-        
-        Output1.text = Roll[0].ToString();
-        Output2.text = Roll[1].ToString();
-        Output3.text = Roll[2].ToString();
-        Output4.text = Roll[3].ToString();
-        Output5.text = Roll[4].ToString();
-        OutputTotal.text = total.ToString();
 
         StrMod.text = "+2";
         DexMod.text = "+2";
@@ -63,13 +82,6 @@ public class RollDice : MonoBehaviour
         IntMod.text = "+2";
         WisMod.text = "+2";
         ChaMod.text = "+2";
-
-        string result = "tot = ";
-        foreach (float tot in Total)
-        {
-            result += tot.ToString() + ", ";
-        }
-        Debug.Log(result);
 
         List<string> options = new List<string>();
         if(Str.options.Count < 6)
@@ -84,12 +96,4 @@ public class RollDice : MonoBehaviour
         }
             
     }
-    void PopulateList()
-    {
-        
-
-
-        
-    }
-
 }
