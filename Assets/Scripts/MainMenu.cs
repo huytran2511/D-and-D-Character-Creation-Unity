@@ -7,15 +7,15 @@ public class MainMenu : MonoBehaviour
 {
     public void GenChar()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(1);
     }
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadScene(2);
     }
     public void QuitGame()
     {
-        Debug.Log("QUIT!");
+        Debug.Log("QUIT");
         Application.Quit();
     }
 }
