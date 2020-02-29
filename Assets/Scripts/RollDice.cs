@@ -6,24 +6,21 @@ using TMPro;
 
 public class RollDice : MonoBehaviour
 {
-    public TMP_Text Output1;
-    public TMP_Text Output2;
-    public TMP_Text Output3;
-    public TMP_Text Output4;
-    public TMP_Text Output5;
-    public TMP_Text OutputTotal;
+    public TMP_Text Output1, Output2, Output3, Output4, Output5, OutputTotal;
+    public TMP_Text StrMod, DexMod, ConMod, IntMod, WisMod, ChaMod;
+    public TMP_Dropdown Str, Dex, Con, Int, Wis, Cha;
 
-    public int[] Roll = new int[5];
-    public int total;
-    public List<int> Total;
+    public float[] Roll = new float[5];
+    public float total;
+    public List<float> Total;
 
     void Start()
     {
-        
+        Total = new List<float>();
     }
     public void DiceRoll()
     {
-        int first = 0, second = 0, third = 0;
+        float first = 0, second = 0, third = 0;
         for(int i = 0; i < 5; i++)
         {
             Roll[i] = Random.Range(1, 7);
@@ -48,11 +45,51 @@ public class RollDice : MonoBehaviour
             }
         }
         total = first + second + third;
+        if(Total.Count < 6)
+        {
+            Total.Add(total);
+        }
+        
         Output1.text = Roll[0].ToString();
         Output2.text = Roll[1].ToString();
         Output3.text = Roll[2].ToString();
         Output4.text = Roll[3].ToString();
         Output5.text = Roll[4].ToString();
         OutputTotal.text = total.ToString();
+
+        StrMod.text = "+2";
+        DexMod.text = "+2";
+        ConMod.text = "+2";
+        IntMod.text = "+2";
+        WisMod.text = "+2";
+        ChaMod.text = "+2";
+
+        string result = "tot = ";
+        foreach (float tot in Total)
+        {
+            result += tot.ToString() + ", ";
+        }
+        Debug.Log(result);
+
+        List<string> options = new List<string>();
+        if(Str.options.Count < 6)
+        {
+            options.Add(Total[Total.Count - 1].ToString());
+            Str.AddOptions(options);
+            Dex.AddOptions(options);
+            Con.AddOptions(options);
+            Int.AddOptions(options);
+            Wis.AddOptions(options);
+            Cha.AddOptions(options);
+        }
+            
     }
+    void PopulateList()
+    {
+        
+
+
+        
+    }
+
 }
